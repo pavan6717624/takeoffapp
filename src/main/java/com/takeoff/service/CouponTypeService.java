@@ -26,7 +26,7 @@ public class CouponTypeService {
 	
 	
 	
-	if(userDetails.getAuthorities().contains(new SimpleGrantedAuthority("Vendor")) && vendorCouponsRepository.complimentaryExists(Long.valueOf(userDetails.getUsername())))
+	if((userDetails.getAuthorities().contains(new SimpleGrantedAuthority("Vendor")) || userDetails.getAuthorities().contains(new SimpleGrantedAuthority("Admin"))) && vendorCouponsRepository.complimentaryExists(Long.valueOf(userDetails.getUsername())))
 	return true;
 	return status;
 	}
