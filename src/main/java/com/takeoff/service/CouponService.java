@@ -508,7 +508,7 @@ public Long disLikeCoupon(Long couponId, Long userId, boolean dislike) {
 + ""
 
 +"</div>"
-				+"<div style='text-align:center'>wwww.thetakeoff.in<br/><br/>Subscribe to TakeOff by <br/>Reference Code 'TO"+customerId+"'.<br/><br/>Enjoy the Experience of TakeOff."
+				+"<div style='text-align:center'>wwww.thetake-off.com<br/><br/>Subscribe to TakeOff by <br/>Reference Code 'TO"+customerId+"'.<br/><br/>Enjoy the Experience of TakeOff."
 				+"</div></td></tr></table>"
 				
 				
