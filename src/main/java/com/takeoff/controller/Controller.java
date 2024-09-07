@@ -816,7 +816,7 @@ List<Long> couponIds = request.getCouponIds();
 		if(couponIds.size() == 0)
 			couponIds=Arrays.asList(-1l);
 		
-		return couponService.getCoupons(0l,2l,request.getUserId(),couponIds,request.getCategory(),request.getSubCategory(), request.getCity(), request.getKeywords(),request.getVendorSelected());
+		return couponService.getCoupons(0l,3l,request.getUserId(),couponIds,request.getCategory(),request.getSubCategory(), request.getCity(), request.getKeywords(),request.getVendorSelected());
 	}
 	
 	@RequestMapping("/getDailyCoupons")
@@ -830,7 +830,7 @@ List<Long> couponIds = request.getCouponIds();
 		if(couponIds.size() == 0)
 			couponIds=Arrays.asList(-1l);
 		
-		return couponService.getCoupons(0l,3l,request.getUserId(),couponIds,request.getCategory(),request.getSubCategory(), request.getCity(), request.getKeywords(),request.getVendorSelected());
+		return couponService.getCoupons(0l,7l,request.getUserId(),couponIds,request.getCategory(),request.getSubCategory(), request.getCity(), request.getKeywords(),request.getVendorSelected());
 	}
 	
 	@RequestMapping("/getLimitedCoupons")
@@ -858,7 +858,7 @@ List<Long> couponIds = request.getCouponIds();
 		if(couponIds.size() == 0)
 			couponIds=Arrays.asList(-1l);
 		
-		return couponService.getCoupons(0l,5l,request.getUserId(),couponIds,request.getCategory(),request.getSubCategory(), request.getCity(), request.getKeywords(),request.getVendorSelected());
+		return couponService.getCoupons(0l,2l,request.getUserId(),couponIds,request.getCategory(),request.getSubCategory(), request.getCity(), request.getKeywords(),request.getVendorSelected());
 	}
 	
 	@RequestMapping("/getDiscountCoupons")
