@@ -120,7 +120,7 @@ public class UtilService {
 		   {
 			   SimpleMailMessage msg = new SimpleMailMessage();
 		     msg.setTo(mailTo);
-			msg.setFrom("support@thetakeoff.in");
+			msg.setFrom("thetakeoffapp@gmail.com");
 		     msg.setSubject(subject);
 		     msg.setText(text);
 			   try
