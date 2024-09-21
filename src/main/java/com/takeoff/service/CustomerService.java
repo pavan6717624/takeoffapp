@@ -317,6 +317,7 @@ redems=10;
 		if(rows == 1)
 		{
 		customer.setReferCode("TO"+customer.getUser().getLoginId());
+		customer.setRefererId("TO"+customer.getUser().getLoginId());
 		customer.setMappingStatus(true);
 		customer.getUser().setMessage("Mapping Successful");
 		customer.setWalletAmount(0d);
