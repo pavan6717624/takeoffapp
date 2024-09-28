@@ -312,7 +312,7 @@ redems=10;
 		customerDetailsRepository.save(customer);
 		
 		int rows = customerDetailsRepository.customerMapping(customer.getUser().getUserId(), 
-				customerDetailsRepository.findByReferCode(customer.getRefererId()).get(0).getUser().getUserId(),subscription.getSubscription());
+				customerDetailsRepository.findByReferCode1(customer.getRefererId()).get(0).getUser().getUserId(),subscription.getSubscription());
 		
 		if(rows == 1)
 		{
