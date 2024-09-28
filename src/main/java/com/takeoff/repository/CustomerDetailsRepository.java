@@ -19,7 +19,7 @@ import com.takeoff.model.StatsDTO;
 @Repository
 public interface CustomerDetailsRepository extends JpaRepository<CustomerDetails,Long> {
 	
-	Optional<CustomerDetails> findByReferCode(String referCode);
+	List<CustomerDetails> findByReferCode(String referCode);
 	
 	  @Modifying
 	  @Transactional
