@@ -20,6 +20,10 @@ import com.takeoff.model.StatsDTO;
 public interface CustomerDetailsRepository extends JpaRepository<CustomerDetails,Long> {
 	
 	Optional<CustomerDetails> findByReferCode(String referCode);
+
+	
+	  @Query("select c from CustomerDetails c where c.referCode=(:referCode)")
+	List<CustomerDetails> findByReferCode1(String referCode);
 	
 	  @Modifying
 	  @Transactional
