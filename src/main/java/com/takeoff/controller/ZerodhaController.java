@@ -35,7 +35,7 @@ public class ZerodhaController {
 
 	{
 		headers.set("Authorization",
-				"enctoken 5KIYI3gcZ+VJp7l4l2L6JIINxsokaODIoVjMCmJ4C7OW5CNz3zJdowga9vcc+ZlQmv6SZ1LW91oCzyWLQj/MYkijzeMg0UYyV9FeZvPgrnog8fvOefPxPg==");
+				"enctoken Tgk88orJcGwITy3RCmh3d3FPD+Kn1KSaIGLMfsXcs2CYKpvJwkQzqZDwlRbMJqa8VFOPra/daaGspi/tCLL//eRA0NCKIbBw2H7n017KJ4vYtViJsZ5T6w==");
 		headers.set("User-Agent",
 				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 		entity = new HttpEntity<String>(headers);
