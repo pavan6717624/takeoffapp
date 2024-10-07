@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
-
 @SpringBootApplication
 @RestController
 @CrossOrigin(origins = "*")
@@ -24,13 +21,7 @@ public class TakeOff {
 
 	}
 
-	@Bean
-	public Cloudinary cloudinaryConfig() {
-
-		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "hwlyozehf", "api_key",
-				"453395666963287", "api_secret", "Q-kgBVQlRlGtdccq-ATYRFSoR8s"));
-		return cloudinary;
-	}
+	
 
 	@RequestMapping("/")
 	public String demo() {
