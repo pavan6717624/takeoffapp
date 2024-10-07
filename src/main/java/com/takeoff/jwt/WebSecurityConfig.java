@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/GMAPI/**").permitAll()
 				.antMatchers("/check").permitAll()
 				.antMatchers("/MYTRADE/**").permitAll()
+				.antMatchers("/ZERODHA/**").permitAll()
 				.antMatchers("/approveSMS").permitAll()
 				.antMatchers("/getOrderId").permitAll()
 				.antMatchers("/checkRefererId").permitAll()
