@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.mytradingsetup.model.ZData;
+import com.mytradingsetup.model.ZOIData;
 import com.takeoff.model.JollyZData;
 import com.takeoff.model.JollyZOIData;
 
@@ -43,7 +45,6 @@ public class ZerodhaController {
 	}
 
 
-
 	private List<String> getInstruments() {
 
 		String output = template.exchange("https://api.kite.trade/instruments", HttpMethod.GET, entity, String.class)
@@ -54,14 +55,14 @@ public class ZerodhaController {
 	}
 
 	@RequestMapping(value = "getData")
-	public List<JollyZOIData> getData(@RequestParam("instrument") String instrument) {
+	public List<ZOIData> getData(@RequestParam("instrument") String instrument) {
 		String call[] = { "CE", "PE" };
 		Double lastPrice = getLastPrice(instrument);
-		int candlesSize = 200;
+		int candlesSize = 300;
 		System.out.println(lastPrice);
 		List<String> mapids = getCEPE(lastPrice);
 		System.out.println(mapids);
-		List<JollyZOIData> OIDataList = new ArrayList<>();
+		List<ZOIData> OIDataList = new ArrayList<>();
 
 		for (int j = 0; j < mapids.size(); j++) {
 
@@ -69,14 +70,14 @@ public class ZerodhaController {
 
 			for (int k = 0; k < 2; k++) {
 
-				JollyZOIData oiData = new JollyZOIData();
+				ZOIData oiData = new ZOIData();
 				oiData.setPrice(Long.valueOf(spiltData[0]));
 				oiData.setInstrument(Long.valueOf(spiltData[1 + k]));
 				oiData.setCall(call[k]);
 
 				String output = template.exchange(
 						"https://kite.zerodha.com/oms/instruments/historical/" + oiData.getInstrument()
-								+ "/minute?user_id=IO7052&oi=1&from=2024-09-30&to=2024-10-10",
+								+ "/minute?user_id=IO7052&oi=1&from=2024-10-07&to=2024-10-10",
 						HttpMethod.GET, entity, String.class).getBody();
 
 				// System.out.println(output);
@@ -90,7 +91,7 @@ public class ZerodhaController {
 				if (startFrom < 0)
 					startFrom = 0;
 
-				List<JollyZData> data = new ArrayList<>();
+				List<ZData> data = new ArrayList<>();
 
 				for (int i = startFrom; i < candles.length; i++) {
 
@@ -103,7 +104,7 @@ public class ZerodhaController {
 					close1 = Double.parseDouble(candles[i].split(",")[4]);
 					volume1 = Double.parseDouble(candles[i].split(",")[5]);
 					oi1 = Double.parseDouble(candles[i].split(",")[6]);
-					data.add(new JollyZData(date1, open1, high1, low1, close1, volume1, oi1));
+					data.add(new ZData(date1, open1, high1, low1, close1, volume1, oi1));
 				}
 
 				oiData.setClose(data.stream().map(o -> o.getClose()).collect(Collectors.toList()));
@@ -120,40 +121,40 @@ public class ZerodhaController {
 
 		}
 
-		List<JollyZOIData> CEOIDataList = OIDataList.stream().filter(o -> o.getCall().equals("CE"))
+		List<ZOIData> CEOIDataList = OIDataList.stream().filter(o -> o.getCall().equals("CE"))
 				.collect(Collectors.toList());
-		List<JollyZOIData> PEOIDataList = OIDataList.stream().filter(o -> o.getCall().equals("PE"))
+		List<ZOIData> PEOIDataList = OIDataList.stream().filter(o -> o.getCall().equals("PE"))
 				.collect(Collectors.toList());
 
 		List<Double> ceSumOis = new ArrayList<>();
-		for (int i = 0; i < candlesSize; i++) {
-			Double sumOi = 0d;
-			for (int j = 0; j < CEOIDataList.size(); j++) {
-				sumOi += CEOIDataList.get(j).getOi().get(i);
-			}
-
-			ceSumOis.add(sumOi);
-
-		}
+//		for (int i = 0; i < candlesSize; i++) {
+//			Double sumOi = 0d;
+//			for (int j = 0; j < CEOIDataList.size(); j++) {
+//				sumOi += CEOIDataList.get(j).getOi().get(i);
+//			}
+//
+//			ceSumOis.add(sumOi);
+//
+//		}
 
 		List<Double> peSumOis = new ArrayList<>();
-		for (int i = 0; i < candlesSize; i++) {
-			Double sumOi = 0d;
-			for (int j = 0; j < PEOIDataList.size(); j++) {
-				sumOi += PEOIDataList.get(j).getOi().get(i);
-			}
+//		for (int i = 0; i < candlesSize; i++) {
+//			Double sumOi = 0d;
+//			for (int j = 0; j < PEOIDataList.size(); j++) {
+//				sumOi += PEOIDataList.get(j).getOi().get(i);
+//			}
+//
+//			peSumOis.add(sumOi);
+//
+//		}
 
-			peSumOis.add(sumOi);
-
-		}
-
-		JollyZOIData oiData = new JollyZOIData();
+		ZOIData oiData = new ZOIData();
 		oiData.setCall("CE");
 		oiData.setOi(ceSumOis);
 		oiData.setDate(CEOIDataList.get(0).getDate());
 		OIDataList.add(oiData);
 
-		oiData = new JollyZOIData();
+		oiData = new ZOIData();
 		oiData.setCall("PE");
 		oiData.setOi(peSumOis);
 		oiData.setDate(CEOIDataList.get(0).getDate());
@@ -163,9 +164,9 @@ public class ZerodhaController {
 	}
 
 	@RequestMapping(value = "getStockData")
-	public JollyZOIData getStockData(@RequestParam("instrument") String instrument) {
+	public ZOIData getStockData(@RequestParam("instrument") String instrument) {
 
-		JollyZOIData oiData = new JollyZOIData();
+		ZOIData oiData = new ZOIData();
 
 		String output = template.exchange(
 				"https://kite.zerodha.com/oms/instruments/historical/" + instrument
@@ -183,7 +184,7 @@ public class ZerodhaController {
 		if (startFrom < 0)
 			startFrom = 0;
 
-		List<JollyZData> data = new ArrayList<>();
+		List<ZData> data = new ArrayList<>();
 
 		for (int i = startFrom; i < candles.length; i++) {
 
@@ -196,7 +197,7 @@ public class ZerodhaController {
 			close1 = Double.parseDouble(candles[i].split(",")[4]);
 			volume1 = Double.parseDouble(candles[i].split(",")[5]);
 			oi1 = Double.parseDouble(candles[i].split(",")[6]);
-			data.add(new JollyZData(date1, open1, high1, low1, close1, volume1, oi1));
+			data.add(new ZData(date1, open1, high1, low1, close1, volume1, oi1));
 		}
 
 		oiData.setClose(data.stream().map(o -> o.getClose()).collect(Collectors.toList()));
@@ -215,7 +216,7 @@ public class ZerodhaController {
 
 		String output = template.exchange(
 				"https://kite.zerodha.com/oms/instruments/historical/" + instrument
-						+ "/minute?user_id=IO7052&oi=1&from=2024-09-30&to=2024-10-10",
+						+ "/minute?user_id=IO7052&oi=1&from=2024-10-07&to=2024-10-10",
 				HttpMethod.GET, entity, String.class).getBody();
 
 		System.out.println(output);
@@ -235,12 +236,12 @@ public class ZerodhaController {
 		List<Long> prices = new ArrayList<>();
 		List<String> data = new ArrayList<>();
 
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 6; i++) {
 			Long p = price - i * 50;
 			prices.add(p);
 		}
 
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 6; i++) {
 			Long p = price + i * 50;
 			prices.add(p);
 		}
@@ -273,7 +274,7 @@ public class ZerodhaController {
 		return checkPatter(getStockData(instrumentToken.split(",")[0]));
 	}
 
-	public Boolean checkPatter(JollyZOIData data) {
+	public Boolean checkPatter(ZOIData data) {
 
 		List<Double> highs = data.getHigh();
 		List<Double> lows = data.getLow();
