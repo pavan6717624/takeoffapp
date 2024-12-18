@@ -48,12 +48,15 @@ public class JollyController {
 			String MessageSid, String AccountSid, String Source, String RetryCount,String Author, String ParticipantSid, String Body, String ConversationSid ) {
 
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		
+		System.out.println(ConversationSid+" "+MessageSid);
+		
 	  Message message = Message.updater(ConversationSid, MessageSid)
               .setAuthor("regretfulUser")
               .setBody("I take back what I said")
               .update();
 	  
-	  
+	  System.out.println(message.getSid());
      
       return "";
 	}
