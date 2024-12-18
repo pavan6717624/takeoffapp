@@ -24,8 +24,8 @@ public class JollyController {
 	@Autowired
 	JollyServiceClass service;
 	
-	 public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
-	    public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
+	 public static final String ACCOUNT_SID = "AC00d36fe88cedc1d3681bce8b2ee878a2";
+	    public static final String AUTH_TOKEN = "b0b98f4e6ab715fd4f543680bc32f7c9";
 	
 	@RequestMapping(value = "whatsapp")
 	public String whatsapp() {
@@ -51,11 +51,11 @@ public class JollyController {
 		
 		System.out.println(ConversationSid+" "+MessageSid);
 		
-	  Message message = Message.updater(ConversationSid, MessageSid)
-              .setAuthor("regretfulUser")
-              .setBody("I take back what I said")
-              .update();
-	  
+		 Message message =
+		            Message.creator(ConversationSid).setAuthor("Pavan").setBody("Ahoy there!").create();
+
+		
+	
 	  System.out.println(message.getSid());
      
       return "";
