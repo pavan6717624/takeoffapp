@@ -41,20 +41,7 @@ public class JollyController {
       return "";
 	}
 	
-//	MessagingServiceSid=MGd081f54e2ed7d41ac1a26383a72d202a
-//			&EventType=onMessageAdded
-//			&Attributes=%7B%7D
-//			&DateCreated=2024-12-18T14:35:28.423Z
-//			&Index=8
-//			&ChatServiceSid=IS4c4a462a93e042e591cf1372486010c8
-//			&MessageSid=IMd098f0d004a74546b90272c069ba42b6
-//			&AccountSid=AC00d36fe88cedc1d3681bce8b2ee878a2
-//			&Source=WHATSAPP
-//			&RetryCount=0
-//			&Author=whatsapp:%2B919449840144
-//			&ParticipantSid=MB41fbceca44744a8ba10cbbce01722116
-//			&Body=Dhdhdn
-//			&ConversationSid=CH6f3dda8fba2846e28462649aa8b8d207
+
 	
 	@RequestMapping(value = "whatsapprespond")
 	public String whatsapprespond(String MessagingServiceSid, String EventType, String Attributes, String DateCreated, String Index, String ChatServiceSid,
